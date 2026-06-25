@@ -20,6 +20,13 @@ BRAND_DESCRIPTION = (
 )
 CONTACT_EMAIL = "hello@omnistack.co.za"
 
+# --- Legal / company registration details ---------------------------------
+COMPANY_LEGAL_NAME = "OmniStack (Pty) Ltd"
+COMPANY_REG_NUMBER = "2026/499208/07"
+COMPANY_BEE_STATUS = "Level 1 B-BBEE Partner"
+PRIVACY_POLICY_EFFECTIVE_DATE = "25 June 2026"
+PRIVACY_POLICY_EMAIL = "jarrod@omnistack.co.za"
+
 # --- Color palette (per OmniStack brand identity: Innovation Purple + Data Cyan) ---
 COLOR_BG_PRIMARY = "#05060A"
 COLOR_BG_SECONDARY = "#0D1117"

@@ -288,6 +288,43 @@ def get_theme_css() -> str:
         cursor: not-allowed;
     }}
 
+    /* ---------- Site footer (company / legal details) ---------- */
+    .omni-site-footer {{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        margin-top: 2rem;
+        padding: 1.25rem 1rem;
+        text-align: center;
+        color: {COLOR_TEXT_MUTED};
+        font-size: 0.78rem;
+    }}
+
+    .omni-site-footer-sep {{
+        display: none;
+    }}
+
+    /* Restyle the Privacy Policy button (a real Streamlit widget, since it
+       needs to trigger a Python-side dialog) to read as a footer link
+       rather than a default button. */
+    .st-key-omni-privacy-trigger button {{
+        background: transparent;
+        border: none;
+        color: {COLOR_DATA_CYAN};
+        font-family: {FONT_BODY};
+        font-size: 0.78rem;
+        font-weight: 500;
+        text-decoration: underline;
+        padding: 0.25rem 0;
+    }}
+
+    .st-key-omni-privacy-trigger button:hover {{
+        color: {COLOR_TEXT_PRIMARY};
+        background: transparent;
+        border: none;
+    }}
+
     /* =====================================================================
        DESKTOP / LARGER-VIEWPORT ENHANCEMENTS (progressive, not a fallback)
        ===================================================================== */
@@ -371,6 +408,16 @@ def get_theme_css() -> str:
         .omni-form-submit {{
             width: auto;
             padding: 0.7rem 1.4rem;
+        }}
+
+        .omni-site-footer {{
+            flex-direction: row;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }}
+
+        .omni-site-footer-sep {{
+            display: inline;
         }}
     }}
     """
