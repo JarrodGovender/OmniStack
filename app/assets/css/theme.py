@@ -23,6 +23,17 @@ def get_theme_css() -> str:
     /* ---------- Brand typography ---------- */
     @import url('{GOOGLE_FONTS_URL}');
 
+    /* =====================================================================
+       MOBILE-FIRST BASE STYLES
+       Everything below targets small screens by default. Larger-viewport
+       refinements are layered in via the min-width media query at the
+       bottom of this file — never the other way around.
+       ===================================================================== */
+
+    html, body, .stApp {{
+        overflow-x: hidden;
+    }}
+
     /* ---------- Base app background ---------- */
     .stApp {{
         background: radial-gradient(circle at 15% 20%, {COLOR_BG_SECONDARY} 0%, {COLOR_BG_PRIMARY} 55%);
@@ -36,24 +47,24 @@ def get_theme_css() -> str:
     header {{visibility: hidden;}}
 
     .block-container {{
-        padding-top: 4rem;
+        padding-top: 2rem;
         max-width: 1100px;
     }}
 
     /* ---------- Animated gradient accent glow ---------- */
     @keyframes pulse-glow {{
-        0%   {{ opacity: 0.55; filter: blur(40px); }}
-        50%  {{ opacity: 0.95; filter: blur(55px); }}
-        100% {{ opacity: 0.55; filter: blur(40px); }}
+        0%   {{ opacity: 0.55; filter: blur(30px); }}
+        50%  {{ opacity: 0.95; filter: blur(40px); }}
+        100% {{ opacity: 0.55; filter: blur(30px); }}
     }}
 
     .omni-glow {{
         position: fixed;
-        top: -200px;
+        top: -100px;
         left: 50%;
         transform: translateX(-50%);
-        width: 600px;
-        height: 600px;
+        width: 320px;
+        height: 320px;
         background: linear-gradient(135deg, {COLOR_DATA_CYAN}, {COLOR_INNOVATION_PURPLE});
         border-radius: 50%;
         opacity: 0.6;
@@ -68,8 +79,8 @@ def get_theme_css() -> str:
         z-index: 1;
         background: {COLOR_SURFACE};
         border: 1px solid {COLOR_SURFACE_BORDER};
-        border-radius: 20px;
-        padding: 3rem 3rem 2.5rem 3rem;
+        border-radius: 16px;
+        padding: 1.75rem 1.25rem 1.5rem;
         backdrop-filter: blur(18px);
         -webkit-backdrop-filter: blur(18px);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
@@ -85,6 +96,13 @@ def get_theme_css() -> str:
         to   {{ opacity: 1; transform: translateY(0); }}
     }}
 
+    /* ---------- Logo ---------- */
+    .omni-logo {{
+        width: min(220px, 65vw);
+        height: auto;
+        margin-bottom: 1rem;
+    }}
+
     /* ---------- Eyebrow / status badge ---------- */
     .omni-badge {{
         display: inline-flex;
@@ -96,11 +114,11 @@ def get_theme_css() -> str:
         border: 1px solid rgba(0, 240, 255, 0.35);
         color: {COLOR_DATA_CYAN};
         font-family: {FONT_HEADING};
-        font-size: 0.78rem;
+        font-size: 0.72rem;
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
     }}
 
     .omni-badge-dot {{
@@ -119,11 +137,11 @@ def get_theme_css() -> str:
 
     /* ---------- Subtitle / tagline ---------- */
     .omni-subtitle {{
-        font-size: 1.15rem;
+        font-size: 1rem;
         color: {COLOR_TEXT_MUTED};
         max-width: 640px;
         line-height: 1.6;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         text-align: center;
     }}
 
@@ -132,16 +150,16 @@ def get_theme_css() -> str:
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 0.75rem;
-        margin-bottom: 2.2rem;
+        gap: 0.5rem;
+        margin-bottom: 1.75rem;
     }}
 
     .omni-pill {{
-        padding: 0.55rem 1.1rem;
+        padding: 0.45rem 0.85rem;
         border-radius: 12px;
         background: {COLOR_SURFACE};
         border: 1px solid {COLOR_SURFACE_BORDER};
-        font-size: 0.88rem;
+        font-size: 0.8rem;
         color: {COLOR_TEXT_PRIMARY};
         transition: border-color 0.25s ease, transform 0.25s ease;
     }}
@@ -154,13 +172,15 @@ def get_theme_css() -> str:
     /* ---------- Status footer ---------- */
     .omni-footer {{
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 0.75rem;
-        padding-top: 1.5rem;
+        gap: 0.5rem;
+        padding-top: 1.25rem;
         border-top: 1px solid {COLOR_SURFACE_BORDER};
         color: {COLOR_TEXT_MUTED};
         font-size: 0.85rem;
+        text-align: center;
     }}
 
     .omni-footer a {{
@@ -179,31 +199,31 @@ def get_theme_css() -> str:
         z-index: 1;
         background: {COLOR_SURFACE};
         border: 1px solid {COLOR_SURFACE_BORDER};
-        border-radius: 20px;
-        padding: 2.5rem 3rem;
-        margin-top: 2rem;
+        border-radius: 16px;
+        padding: 1.75rem 1.25rem;
+        margin-top: 1.5rem;
         backdrop-filter: blur(18px);
         -webkit-backdrop-filter: blur(18px);
     }}
 
     .omni-form-title {{
         font-family: {FONT_HEADING};
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         font-weight: 700;
         margin-bottom: 0.4rem;
         color: {COLOR_TEXT_PRIMARY};
     }}
 
     .omni-form-subtitle {{
-        font-size: 0.92rem;
+        font-size: 0.88rem;
         color: {COLOR_TEXT_MUTED};
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
     }}
 
     .omni-form-grid {{
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
         margin-bottom: 1rem;
     }}
 
@@ -211,10 +231,6 @@ def get_theme_css() -> str:
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
-    }}
-
-    .omni-form-field.full-width {{
-        grid-column: 1 / -1;
     }}
 
     .omni-form-field label {{
@@ -225,22 +241,26 @@ def get_theme_css() -> str:
 
     .omni-form-field input,
     .omni-form-field textarea {{
+        width: 100%;
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid {COLOR_SURFACE_BORDER};
         border-radius: 10px;
         padding: 0.65rem 0.9rem;
         color: {COLOR_TEXT_MUTED};
         font-family: {FONT_BODY};
-        font-size: 0.92rem;
         resize: none;
+        /* 16px floor prevents iOS Safari from auto-zooming the page on input focus */
+        font-size: max(0.92rem, 16px);
     }}
 
     .omni-form-submit {{
-        display: inline-flex;
+        display: flex;
         align-items: center;
+        justify-content: center;
         gap: 0.5rem;
+        width: 100%;
         margin-top: 0.5rem;
-        padding: 0.7rem 1.4rem;
+        padding: 0.85rem 1.4rem;
         border-radius: 10px;
         border: 1px solid {COLOR_SURFACE_BORDER};
         background: linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(109, 40, 217, 0.18));
@@ -249,5 +269,91 @@ def get_theme_css() -> str:
         font-size: 0.9rem;
         font-weight: 600;
         cursor: not-allowed;
+    }}
+
+    /* =====================================================================
+       DESKTOP / LARGER-VIEWPORT ENHANCEMENTS (progressive, not a fallback)
+       ===================================================================== */
+    @media (min-width: 768px) {{
+        .block-container {{
+            padding-top: 4rem;
+        }}
+
+        .omni-glow {{
+            top: -200px;
+            width: 600px;
+            height: 600px;
+        }}
+
+        @keyframes pulse-glow {{
+            0%   {{ opacity: 0.55; filter: blur(40px); }}
+            50%  {{ opacity: 0.95; filter: blur(55px); }}
+            100% {{ opacity: 0.55; filter: blur(40px); }}
+        }}
+
+        .omni-card {{
+            border-radius: 20px;
+            padding: 3rem 3rem 2.5rem 3rem;
+        }}
+
+        .omni-logo {{
+            width: min(320px, 40vw);
+            margin-bottom: 1.5rem;
+        }}
+
+        .omni-badge {{
+            font-size: 0.78rem;
+            margin-bottom: 1.5rem;
+        }}
+
+        .omni-subtitle {{
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+        }}
+
+        .omni-pills {{
+            gap: 0.75rem;
+            margin-bottom: 2.2rem;
+        }}
+
+        .omni-pill {{
+            padding: 0.55rem 1.1rem;
+            font-size: 0.88rem;
+        }}
+
+        .omni-footer {{
+            flex-direction: row;
+            gap: 0.75rem;
+            padding-top: 1.5rem;
+        }}
+
+        .omni-form-card {{
+            border-radius: 20px;
+            padding: 2.5rem 3rem;
+            margin-top: 2rem;
+        }}
+
+        .omni-form-title {{
+            font-size: 1.4rem;
+        }}
+
+        .omni-form-subtitle {{
+            font-size: 0.92rem;
+            margin-bottom: 1.5rem;
+        }}
+
+        .omni-form-grid {{
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }}
+
+        .omni-form-field.full-width {{
+            grid-column: 1 / -1;
+        }}
+
+        .omni-form-submit {{
+            width: auto;
+            padding: 0.7rem 1.4rem;
+        }}
     }}
     """

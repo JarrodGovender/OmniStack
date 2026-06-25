@@ -6,11 +6,13 @@ Pure render function: builds HTML/CSS-class-driven markup for the hero block.
 import streamlit as st
 
 from app.core.config import (
+    BRAND_NAME,
     BRAND_TAGLINE,
     BRAND_DESCRIPTION,
     CONTACT_EMAIL,
     LOGO_DARK_PATH,
 )
+from app.core.styles import image_to_data_uri
 
 
 def render_hero() -> None:
@@ -25,16 +27,12 @@ def render_hero() -> None:
         "🔒 Secure Software Development",
     ]
     pills_html = "".join(f'<span class="omni-pill">{p}</span>' for p in feature_pills)
-
-    # Logo rendered as a real Streamlit image (separate from the card below,
-    # since raw HTML divs can't be split across st.image/st.markdown calls).
-    _, logo_col, _ = st.columns([1, 1, 1])
-    with logo_col:
-        st.image(str(LOGO_DARK_PATH), width="stretch")
+    logo_data_uri = image_to_data_uri(str(LOGO_DARK_PATH))
 
     st.markdown(
         f"""
         <div class="omni-card">
+            <img class="omni-logo" src="{logo_data_uri}" alt="{BRAND_NAME} logo">
             <div class="omni-badge">
                 <span class="omni-badge-dot"></span>
                 Under Development
