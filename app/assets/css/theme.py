@@ -30,8 +30,18 @@ def get_theme_css() -> str:
        bottom of this file — never the other way around.
        ===================================================================== */
 
-    html, body, .stApp {{
+    /* Border-box everywhere so padding/border never silently add to a
+       declared width — the #1 cause of mobile horizontal overflow. */
+    *, *::before, *::after {{
+        box-sizing: border-box;
+    }}
+
+    html, body, .stApp,
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stMainBlockContainer"] {{
         overflow-x: hidden;
+        max-width: 100vw;
     }}
 
     /* ---------- Base app background ---------- */
@@ -47,6 +57,7 @@ def get_theme_css() -> str:
     header {{visibility: hidden;}}
 
     .block-container {{
+        position: relative;
         padding-top: 2rem;
         max-width: 1100px;
     }}
@@ -58,8 +69,13 @@ def get_theme_css() -> str:
         100% {{ opacity: 0.55; filter: blur(30px); }}
     }}
 
+    /* Anchored to .block-container (position: absolute) rather than the
+       viewport (position: fixed) — fixed-position elements visibly lag
+       and "swim" during touch-scroll on mobile Safari/Chrome as the
+       browser's address bar shows/hides. Absolute scrolls with the page
+       like a normal element instead, which removes that jank entirely. */
     .omni-glow {{
-        position: fixed;
+        position: absolute;
         top: -100px;
         left: 50%;
         transform: translateX(-50%);
@@ -231,6 +247,7 @@ def get_theme_css() -> str:
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
+        min-width: 0;
     }}
 
     .omni-form-field label {{
