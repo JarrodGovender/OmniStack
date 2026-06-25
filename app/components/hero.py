@@ -29,18 +29,28 @@ def render_hero() -> None:
     pills_html = "".join(f'<span class="omni-pill">{p}</span>' for p in feature_pills)
     logo_data_uri = image_to_data_uri(str(LOGO_DARK_PATH))
 
+    if logo_data_uri:
+        # Logo image carries the wordmark visually, so the real <h1> only
+        # needs to exist for search engines and screen readers, not be seen.
+        brand_markup = (
+            f'<img class="omni-logo" src="{logo_data_uri}" alt="{BRAND_NAME} logo">'
+            f'<h1 class="omni-sr-only">{BRAND_NAME}</h1>'
+        )
+    else:
+        # Logo file missing/unreadable (image_to_data_uri returns "" rather
+        # than raising) — fall back to a real visible text heading instead.
+        brand_markup = f'<h1 class="omni-logo-fallback">{BRAND_NAME}</h1>'
+
     st.markdown(
         f"""
         <div class="omni-card">
-            <img class="omni-logo" src="{logo_data_uri}" alt="{BRAND_NAME} logo">
+            {brand_markup}
             <div class="omni-badge">
                 <span class="omni-badge-dot"></span>
                 Under Development
             </div>
-            <p class="omni-subtitle">
-                <strong>{BRAND_TAGLINE}.</strong><br>
-                {BRAND_DESCRIPTION}
-            </p>
+            <h2 class="omni-subtitle">{BRAND_TAGLINE}.</h2>
+            <p class="omni-desc">{BRAND_DESCRIPTION}</p>
             <div class="omni-pills">
                 {pills_html}
             </div>

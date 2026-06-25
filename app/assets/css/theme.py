@@ -119,6 +119,19 @@ def get_theme_css() -> str:
         margin-bottom: 1rem;
     }}
 
+    /* Shown only if the logo image is missing/unreadable (see
+       image_to_data_uri's graceful fallback in core/styles.py). */
+    .omni-logo-fallback {{
+        font-family: {FONT_HEADING};
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 0 0 1rem 0;
+        background: linear-gradient(135deg, {COLOR_TEXT_PRIMARY} 35%, {COLOR_DATA_CYAN} 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }}
+
     /* ---------- Eyebrow / status badge ---------- */
     .omni-badge {{
         display: inline-flex;
@@ -151,9 +164,36 @@ def get_theme_css() -> str:
         50% {{ opacity: 0.25; }}
     }}
 
-    /* ---------- Subtitle / tagline ---------- */
+    /* ---------- Accessible / SEO-only heading ----------
+       Present in the DOM for search engines and screen readers, but not
+       visible — the logo image already carries the wordmark visually. */
+    .omni-sr-only {{
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }}
+
+    /* ---------- Tagline (h2) ---------- */
     .omni-subtitle {{
-        font-size: 1rem;
+        font-family: {FONT_HEADING};
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: {COLOR_TEXT_PRIMARY};
+        max-width: 640px;
+        line-height: 1.4;
+        margin: 0 0 0.5rem 0;
+        text-align: center;
+    }}
+
+    /* ---------- Description paragraph ---------- */
+    .omni-desc {{
+        font-size: 0.95rem;
         color: {COLOR_TEXT_MUTED};
         max-width: 640px;
         line-height: 1.6;
@@ -209,10 +249,12 @@ def get_theme_css() -> str:
         text-decoration: underline;
     }}
 
-    /* ---------- Inquiry form placeholder (UI only, not yet functional) ---------- */
-    .omni-form-card {{
-        position: relative;
-        z-index: 1;
+    /* ---------- Inquiry form card ----------
+       .st-key-omni-inquiry-card is a real Streamlit container (keyed via
+       st.container(key=...)), not a hand-written div — the native
+       st.form widgets inside it need an actual DOM wrapper to be styled
+       as a card, which a markdown-only div can't provide. */
+    .st-key-omni-inquiry-card {{
         background: {COLOR_SURFACE};
         border: 1px solid {COLOR_SURFACE_BORDER};
         border-radius: 16px;
@@ -236,56 +278,25 @@ def get_theme_css() -> str:
         margin-bottom: 1.25rem;
     }}
 
-    .omni-form-grid {{
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.85rem;
-        margin-bottom: 1rem;
-    }}
-
-    .omni-form-field {{
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-        min-width: 0;
-    }}
-
-    .omni-form-field label {{
-        font-size: 0.8rem;
-        color: {COLOR_TEXT_MUTED};
-        font-weight: 500;
-    }}
-
-    .omni-form-field input,
-    .omni-form-field textarea {{
-        width: 100%;
+    /* Native form widgets get a light restyle to match the glass aesthetic
+       instead of Streamlit's default theme widget chrome. */
+    .st-key-omni-inquiry-card [data-testid="stTextInput"] input,
+    .st-key-omni-inquiry-card [data-testid="stTextArea"] textarea {{
         background: rgba(255, 255, 255, 0.03);
-        border: 1px solid {COLOR_SURFACE_BORDER};
+        border-color: {COLOR_SURFACE_BORDER};
         border-radius: 10px;
-        padding: 0.65rem 0.9rem;
-        color: {COLOR_TEXT_MUTED};
-        font-family: {FONT_BODY};
-        resize: none;
         /* 16px floor prevents iOS Safari from auto-zooming the page on input focus */
         font-size: max(0.92rem, 16px);
     }}
 
-    .omni-form-submit {{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
+    .st-key-omni-inquiry-card [data-testid="stFormSubmitButton"] button {{
         width: 100%;
-        margin-top: 0.5rem;
-        padding: 0.85rem 1.4rem;
         border-radius: 10px;
         border: 1px solid {COLOR_SURFACE_BORDER};
-        background: linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(109, 40, 217, 0.18));
-        color: {COLOR_TEXT_MUTED};
+        background: linear-gradient(135deg, rgba(0, 229, 255, 0.25), rgba(109, 40, 217, 0.35));
+        color: {COLOR_TEXT_PRIMARY};
         font-family: {FONT_HEADING};
-        font-size: 0.9rem;
         font-weight: 600;
-        cursor: not-allowed;
     }}
 
     /* ---------- Site footer (company / legal details) ---------- */
@@ -361,7 +372,12 @@ def get_theme_css() -> str:
         }}
 
         .omni-subtitle {{
-            font-size: 1.15rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }}
+
+        .omni-desc {{
+            font-size: 1.1rem;
             margin-bottom: 2rem;
         }}
 
@@ -381,7 +397,7 @@ def get_theme_css() -> str:
             padding-top: 1.5rem;
         }}
 
-        .omni-form-card {{
+        .st-key-omni-inquiry-card {{
             border-radius: 20px;
             padding: 2.5rem 3rem;
             margin-top: 2rem;
@@ -396,18 +412,8 @@ def get_theme_css() -> str:
             margin-bottom: 1.5rem;
         }}
 
-        .omni-form-grid {{
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }}
-
-        .omni-form-field.full-width {{
-            grid-column: 1 / -1;
-        }}
-
-        .omni-form-submit {{
+        .st-key-omni-inquiry-card [data-testid="stFormSubmitButton"] button {{
             width: auto;
-            padding: 0.7rem 1.4rem;
         }}
 
         .omni-site-footer {{

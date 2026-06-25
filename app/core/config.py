@@ -19,6 +19,14 @@ BRAND_DESCRIPTION = (
     "development — built for South African SMEs ready to outpace the competition."
 )
 CONTACT_EMAIL = "hello@omnistack.co.za"
+META_DESCRIPTION = (
+    "OmniStack — enterprise-grade dashboards, AI automation, and secure "
+    "software for South African SMEs."
+)
+OG_DESCRIPTION = (
+    "Custom data dashboards, AI automation, and secure software development "
+    "for ambitious South African SMEs."
+)
 
 # --- Legal / company registration details ---------------------------------
 COMPANY_LEGAL_NAME = "OmniStack (Pty) Ltd"

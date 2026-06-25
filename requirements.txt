@@ -1,4 +1,9 @@
-﻿altair==6.2.2
+﻿# Full pinned lockfile, compiled from requirements.in (streamlit, pillow).
+# Note: gitpython/gitdb/smmap are hard dependencies of streamlit itself
+# (declared in its own install_requires — confirmed via `pip show streamlit`),
+# not leftover dev tooling. They install regardless and can't be dropped
+# without removing streamlit.
+altair==6.2.2
 anyio==4.14.1
 attrs==26.1.0
 blinker==1.9.0

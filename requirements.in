@@ -1,0 +1,6 @@
+# Direct dependencies only — requirements.txt is the full pinned lockfile.
+# After changing this file, regenerate the lock with:
+#   pip install pip-tools
+#   pip-compile requirements.in
+streamlit
+pillow
